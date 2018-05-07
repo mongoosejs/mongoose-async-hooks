@@ -1,0 +1,28 @@
+{
+  "name": "@mongoosejs/async-hooks",
+  "private": false,
+  "version": "0.0.1",
+  "description": "Mongoose plugin providing experimental support for Node.js `async_hooks`",
+  "main": "index.js",
+  "scripts": {
+    "docs": "acquit-markdown -r acquit-ignore -p './test/example.test.js' -h './HEADER.md' > README.md",
+    "test": "mocha test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mongoosejs/mongoose-async-hooks.git"
+  },
+  "keywords": [
+    "mongoose"
+  ],
+  "author": "Valeri Karpov <val@karpov.io>",
+  "license": "MIT",
+  "devDependencies": {
+    "acquit": "0.6.3",
+    "acquit-ignore": "0.0.3",
+    "acquit-markdown": "0.0.10",
+    "co": "4.6.0",
+    "mocha": "*",
+    "mongoose": "5.x"
+  }
+}
