@@ -9,9 +9,17 @@ module.exports = (schema, options) => {
     const resource = new asyncHooks.AsyncResource(resourceName);
     return function() {
       let emittedAfter = false;
+      const args = Array.prototype.slice.call(arguments, 0);
       try {
+        args.unshift(callback, null);
+        if (resource.runInAsyncScope) {
+          resource.runInAsyncScope.apply(resource, args);
+          return;
+        }
+
+        // asyncResource.emitBefore() and asyncResource.emittedAfter() are already deprecated since node v9.6.0
         resource.emitBefore();
-        callback.apply(null, arguments);
+        callback.apply(null, args);
         emittedAfter = true;
         resource.emitAfter();
       } catch (error) {
