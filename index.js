@@ -14,6 +14,7 @@ module.exports = (schema, options) => {
         args.unshift(callback, null);
         if (resource.runInAsyncScope) {
           resource.runInAsyncScope.apply(resource, args);
+          emittedAfter = true;
           return;
         }
 
