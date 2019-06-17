@@ -13,8 +13,8 @@ module.exports = (schema, options) => {
       try {
         args.unshift(callback, null);
         if (resource.runInAsyncScope) {
-          resource.runInAsyncScope.apply(resource, args);
           emittedAfter = true;
+          resource.runInAsyncScope.apply(resource, args);
           return;
         }
 
