@@ -16,33 +16,43 @@ describe('Examples', function() {
     return mongoose.disconnect();
   });
 
-  it('integrates with Node.js async hooks', function(done) {
-    const types = [];
-    const hooks = {
-      init: (asyncId, type) => {
-        types.push(type);
-      }
+  describe('integrates with Node.js async hooks', function () {
+    const getAssertFn = (mode, myModelName) => {
+      return done => {
+        const types = [];
+        const hooks = {
+          init: (asyncId, type) => {
+            types.push(type);
+          }
+        };
+
+        const asyncHook = require('async_hooks').createHook(hooks);
+
+        const schema = new Schema({ name: String });
+
+        // Add this plugin
+        schema.plugin(mongooseAsyncHooks, { mode });
+
+        const MyModel = mongoose.model(myModelName, schema);
+
+        asyncHook.enable();
+
+        const doc = new MyModel({ name: 'test' });
+        doc.save(function(error, doc) {
+          asyncHook.disable();
+
+          assert.ok(types.includes('mongoose.' + myModelName));
+          // acquit:ignore:start
+          done();
+          // acquit:ignore:end
+        });
+      };
     };
 
-    const asyncHook = require('async_hooks').createHook(hooks);
+    // node>=9.6.0
+    it('scope mode', getAssertFn('scope', 'MyModel'));
 
-    const schema = new Schema({ name: String });
-
-    // Add this plugin
-    schema.plugin(mongooseAsyncHooks);
-
-    const MyModel = mongoose.model('MyModel', schema);
-
-    asyncHook.enable();
-
-    const doc = new MyModel({ name: 'test' });
-    doc.save(function(error, doc) {
-      asyncHook.disable();
-
-      assert.ok(types.includes('mongoose.MyModel'));
-      // acquit:ignore:start
-      done();
-      // acquit:ignore:end
-    });
+    // node<9.6.0
+    it('emit mode', getAssertFn('emit', 'MyAnotherModel'));
   });
 });
