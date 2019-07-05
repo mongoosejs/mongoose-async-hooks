@@ -11,9 +11,9 @@ module.exports = (schema, options) => {
       let emittedAfter = false;
       const args = Array.prototype.slice.call(arguments, 0);
       try {
-        args.unshift(callback, null);
         if (resource.runInAsyncScope) {
           emittedAfter = true;
+          args.unshift(callback, null);
           resource.runInAsyncScope.apply(resource, args);
           return;
         }
