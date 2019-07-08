@@ -1,7 +1,7 @@
 {
   "name": "@mongoosejs/async-hooks",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Mongoose plugin providing experimental support for Node.js `async_hooks`",
   "main": "index.js",
   "scripts": {
