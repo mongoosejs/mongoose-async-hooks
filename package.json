@@ -4,6 +4,7 @@
   "version": "0.0.4",
   "description": "Mongoose plugin providing experimental support for Node.js `async_hooks`",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "docs": "acquit-markdown -r acquit-ignore -p './test/example.test.js' -h './HEADER.md' > README.md",
     "test": "mocha test/*.js"
