@@ -24,5 +24,8 @@
     "co": "4.6.0",
     "mocha": "*",
     "mongoose": "5.x"
+  },
+  "peerDependencies": {
+    "mongoose": ">= 5.0.0"
   }
 }
