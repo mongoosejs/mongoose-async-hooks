@@ -26,6 +26,6 @@
     "mongoose": "5.x"
   },
   "peerDependencies": {
-    "mongoose": "*"
+    "mongoose": ">= 5.0.0"
   }
 }
